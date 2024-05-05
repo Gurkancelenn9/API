@@ -1,0 +1,83 @@
+openapi: 3.0.0
+info:
+  title: Sample REST API
+  description: A sample RESTful API for demonstration purposes
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+paths:
+  /items:
+    get:
+      summary: Get all items
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Create a new item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of the item
+              required:
+                - name
+      responses:
+        '201':
+          description: Created
+    /{id}:
+      get:
+        summary: Get an item by ID
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: OK
+          '404':
+            description: Not Found
+      put:
+        summary: Update an item by ID
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: integer
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: The new name of the item
+                required:
+                  - name
+        responses:
+          '200':
+            description: OK
+          '404':
+            description: Not Found
+      delete:
+        summary: Delete an item by ID
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: integer
+        responses:
+          '204':
+            description: No Content
+          '404':
+            description: Not Found
